@@ -8,7 +8,7 @@ def train_baseline(model, train_loader, val_loader, device,
                    patience=5, save_path="checkpoints/baseline_best.pth"):
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay) #l2 decay
 
     best_val_loss = float('inf')
     no_improve = 0
@@ -33,10 +33,9 @@ def train_baseline(model, train_loader, val_loader, device,
             images, labels = images.to(device), labels.to(device)
 
             optimizer.zero_grad()
-            outputs = model(images)
-
+            outputs = model(images) # forwardpass
             loss = criterion(outputs, labels)
-            loss.backward()
+            loss.backward() # backpass
             optimizer.step()
 
             train_loss += loss.item()

@@ -5,23 +5,25 @@ class CustomCNN(nn.Module):
         super(CustomCNN, self).__init__()
 
         self.features = nn.Sequential(
+            # лінії точки та кути
             nn.Conv2d(3, 32, kernel_size=3, padding=1),
             nn.BatchNorm2d(32),
             nn.ReLU(),
-            nn.MaxPool2d(2),  # 128 -> 64
+            nn.MaxPool2d(2),  # 128px -> 64px
 
+            # листя, пелюстки, контури квітів
             nn.Conv2d(32, 64, kernel_size=3, padding=1),
             nn.BatchNorm2d(64),
             nn.ReLU(),
-            nn.MaxPool2d(2),  # 64 -> 32
+            nn.MaxPool2d(2),  # 64px -> 32px
 
+            # форма, колір, внутрішня структура
             nn.Conv2d(64, 128, kernel_size=3, padding=1),
             nn.BatchNorm2d(128),
             nn.ReLU(),
-            nn.MaxPool2d(2),  # 32 -> 16
+            nn.MaxPool2d(2),  # 32px -> 16px
         )
 
-        # Розмір після 3 пулінгів
         self.classifier = nn.Sequential(
             nn.Flatten(),
             nn.Linear(128 * 16 * 16, 256),

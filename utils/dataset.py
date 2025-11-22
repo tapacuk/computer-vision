@@ -34,8 +34,6 @@ class FlowersDataset(Dataset):
 
         return image, label
 
-from torchvision import transforms
-
 def get_train_transforms(img_size=128):
     return transforms.Compose([
         transforms.Resize((img_size, img_size)),
@@ -63,5 +61,6 @@ def get_ae_transforms(img_size=128):
     return transforms.Compose([
         transforms.Resize((img_size, img_size)),
         transforms.ToTensor(),
+        transforms.Normalize((0.0, 0.0, 0.0), (1.0, 1.0, 1.0))
     ])
 

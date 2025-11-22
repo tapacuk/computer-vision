@@ -9,6 +9,7 @@ def train_transfer(model, train_loader, val_loader, device,
                    lr_backbone=1e-4,
                    lr_head=1e-3,
                    weight_decay=1e-5,
+                   criterion=nn.CrossEntropyLoss(),
                    patience=5,
                    save_path="checkpoints/transfer_best.pth"):
 
@@ -26,8 +27,6 @@ def train_transfer(model, train_loader, val_loader, device,
         {"params": backbone_params, "lr": lr_backbone},
         {"params": head_params, "lr": lr_head},
     ], weight_decay=weight_decay)
-
-    criterion = nn.CrossEntropyLoss()
 
     best_val_loss = float("inf")
     no_improve = 0
